@@ -81,7 +81,8 @@ queryYFchart <- function(ticker, range, interval, time_in_seconds = 0.5) {
     tmp <- data.frame(Date = sapply(tmp$chart$result$timestamp[[1]], convertUNIX2date),
                      volume = tmp$chart$result$indicators$quote[[1]]$volume[[1]],
                      close = tmp$chart$result$indicators$quote[[1]]$close[[1]],
-                     adjclose = tmp$chart$result$indicators$adjclose[[1]]$adjclose[[1]])
+                     adjclose = tmp$chart$result$indicators$adjclose[[1]]$adjclose[[1]],
+                     stringsAsFactors = FALSE)
   }
 }
 
