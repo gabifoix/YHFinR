@@ -1,0 +1,25 @@
+Package: YHFinR
+Type: Package
+Title: Scrape Fundamentals and Historical Prices from Yahoo Finance
+Version: 0.1.0
+Authors@R: person("Gabriel",  "Foix", email = "gabifoix@gmail.com", role = c("aut", "cre"))
+Maintainer: Gabriel Foix <gabifoix@gmail.com>
+Description: Scrape Fundamentals and Historical Prices from Yahoo Finance
+Depends: R (>= 3.5.1)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+NeedsCompilation: no
+Depends:
+    knitr
+Imports:
+    jsonlite,
+    curl
+Suggests:
+    roxygen2,
+    assertthat,
+    testthat (>= 2.0.0),
+URL: https://github.com/gabifoix/YHFinR
+BugReports: https://github.com/gabifoix/YHFinR/issues
+RoxygenNote: 7.1.0
+VignetteBuilder: knitr
