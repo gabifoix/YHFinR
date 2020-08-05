@@ -19,6 +19,7 @@ getYFProfile  <- function(tickers, block = 10, slp = 10) {
 }
 
 
+
 #' @examples getYFKeyStatistics(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE"))
 getYFKeyStatistics <- function(tickers, block = 10, slp = 10) {
   # Set of cols to extract. Some tickers miss some of the fields.
@@ -34,8 +35,17 @@ getYFKeyStatistics <- function(tickers, block = 10, slp = 10) {
 
 
 
-
-#' @examples getYFHistPrices(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE"), "1y", "1mo")
+#' Returns Historical Prices in a data.frame
+#' Fields: Date, volume, close, adjclose
+#' 
+#' @param tickers set of tickers
+#'
+#' @param range character Valid Ranges: 1y, 2y, 5y, 10y, ytd, max
+#' @param periodicity character Valid Intervals: 1d, 1wk, 1mo
+#' @param block 
+#' @param slp 
+#'
+#' @examples getYFHistPrices(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE", "PUM.DE"), "1y", "1mo")
 getYFHistPrices <- function(tickers, range, periodicity, block = 10, slp = 10) {
   cols2extract <- c("Date", "volume", "close", "adjclose")
   res <- lapply(seq_along(tickers), function(i) {

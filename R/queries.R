@@ -27,6 +27,18 @@ queryYFquoteSummary <- function(ticker, module, time_in_seconds = 0.5) {
   }
 }
 
+
+#' Wrapper around queryYFquoteSummary
+#' Pre-defined the fields to extract
+#'
+#' @param tickers 
+#' @param cols2extract 
+#' @param module 
+#' @param block 
+#' @param slp 
+#'
+#' @return list of tickers
+#' @examples
 queryYFquoteSummaryMany <- function(tickers, cols2extract, module, block = 10, slp = 10) {
   res <- lapply(seq_along(tickers), function(i) {
     message(paste("Ticker", i, tickers[i], sep =  " "))

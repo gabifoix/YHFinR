@@ -10,12 +10,11 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 NeedsCompilation: no
-Depends:
-    knitr
 Imports:
     jsonlite,
     curl
 Suggests:
+    knitr,
     roxygen2,
     assertthat,
     testthat (>= 2.0.0),
