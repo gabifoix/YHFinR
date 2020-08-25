@@ -19,7 +19,16 @@ getYFProfile  <- function(tickers, block = 10, slp = 10) {
 }
 
 
-
+#' Returns Yahoo Finance key Statistics of a set of companies (tickers)
+##' To avoid heavy loads, by default, each query gets executed every second and the system stops 10 seconds after each 10 tickers.
+#'
+#' @references https://finance.yahoo.com/quote/VOW3.DE/key-statistics?p=VOW3.DE
+#' @param tickers
+#' @param block 'integer' After each block the query stops slp seconds. Default = 10
+#' @param slp 'integer' Number os seconds to sleep after each block. Default = 10
+#'
+#' @return list of tickers with the Key Statistics info
+#' @export
 #' @examples getYFKeyStatistics(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE"))
 getYFKeyStatistics <- function(tickers, block = 10, slp = 10) {
   # Set of cols to extract. Some tickers miss some of the fields.
@@ -33,6 +42,27 @@ getYFKeyStatistics <- function(tickers, block = 10, slp = 10) {
 
 }
 
+#' Returns Yahoo Finance Basic Financials of a set of companies (tickers)
+##' To avoid heavy loads, by default, each query gets executed every second and the system stops 10 seconds after each 10 tickers.
+#'
+#' @references https://finance.yahoo.com/quote/VOW3.DE/key-statistics?p=VOW3.DE
+#' @param tickers
+#' @param block 'integer' After each block the query stops slp seconds. Default = 10
+#' @param slp 'integer' Number os seconds to sleep after each block. Default = 10
+#'
+#' @return list of tickers with the Basic Financials info
+#' @export
+#' @examples getYFFinancialsBasics(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE"))
+getYFFinancialsBasics <- function(tickers, block = 10, slp = 10) {
+  # Set of cols to extract. Some tickers miss some of the fields.
+  colskeyStats <- c("totalCash", "totalCashPerShare", "ebitda",              
+                    "totalDebt",    "quickRatio",  "currentRatio", "totalRevenue", "debtToEquity" , "revenuePerShare" ,     
+                    "returnOnAssets",  "returnOnEquity", "grossProfits",  "freeCashflow",  "operatingCashflow",  "earningsGrowth",        
+                    "revenueGrowth", "grossMargins", "ebitdaMargins", "operatingMargins", "profitMargins", "financialCurrency"   )
+  res <- queryYFquoteSummaryMany(tickers, colskeyStats, module = "financialData", block, slp)
+  res
+  
+}
 
 
 #' Returns Historical Prices in a data.frame
@@ -42,8 +72,8 @@ getYFKeyStatistics <- function(tickers, block = 10, slp = 10) {
 #'
 #' @param range character Valid Ranges: 1y, 2y, 5y, 10y, ytd, max
 #' @param periodicity character Valid Intervals: 1d, 1wk, 1mo
-#' @param block 
-#' @param slp 
+#' @param block 'integer' After each block the query stops slp seconds. Default = 10
+#' @param slp 'integer' Number os seconds to sleep after each block. Default = 10
 #'
 #' @examples getYFHistPrices(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE", "PUM.DE"), "1y", "1mo")
 getYFHistPrices <- function(tickers, range, periodicity, block = 10, slp = 10) {
