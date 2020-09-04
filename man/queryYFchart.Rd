@@ -23,7 +23,7 @@ Query Yahoo Finance chart for one single ticker.
 Returns a data.frame with "Date" column as character and "volume", "close" and "adjclose" as numeric.
 }
 \examples{
-queryYFchart("SAN.MC", "1y", "1wk")
+queryYFchart("SAN.MC", "1y", "1wk", from = "2020-08-30")
 }
 \references{
 :

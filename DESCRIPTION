@@ -12,7 +12,8 @@ LazyData: true
 NeedsCompilation: no
 Imports:
     jsonlite,
-    curl
+    curl,
+    lubridate
 Suggests:
     knitr,
     roxygen2,

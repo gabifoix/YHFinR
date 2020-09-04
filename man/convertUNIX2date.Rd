@@ -15,6 +15,3 @@ Date
 \description{
 convert UNIX  to Date
 }
-\examples{
-convertUNIX2date("1564351200")
-}
