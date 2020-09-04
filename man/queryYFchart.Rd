@@ -6,12 +6,14 @@
 "chart" is the section where the historical prices are stored.
 Returns a data.frame with "Date" column as character and "volume", "close" and "adjclose" as numeric.}
 \usage{
-queryYFchart(ticker, range, interval, time_in_seconds = 0.5)
+queryYFchart(ticker, range, interval, from = NULL, time_in_seconds = 0.5)
 }
 \arguments{
 \item{range}{character Valid Ranges: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max}
 
 \item{interval}{character Valid Intervals: 1d, 1wk, 1mo}
+
+\item{from}{Date "YYYY-MM-DD" from which the range counts back. Default Sys.Date}
 
 \item{time_in_seconds}{}
 }
