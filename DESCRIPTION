@@ -13,7 +13,9 @@ NeedsCompilation: no
 Imports:
     jsonlite,
     curl,
-    lubridate
+    lubridate,
+    XML,
+    dplyr
 Suggests:
     knitr,
     roxygen2,
