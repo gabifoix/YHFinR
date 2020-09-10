@@ -57,3 +57,21 @@ getYFHistPrices <- function(tickers, range, periodicity, block = 10, slp = 10) {
   names(res) <- tickers
   res
 }
+
+
+
+#' Get components of one index
+#' Note that due to a Yahoo Finance limittion, only the top 30 are returned.
+#'
+#' @param ticker character Indey ticker 
+#'
+#' @return 
+#' @export
+#'
+#' @examples getYFIndexComp("%5EMDAXI")
+getYFIndexComp <- function(ticker) {
+  url <- buildYahooFinanceURL(ticker, "components")
+  res <- scrapeYahooFinance(url)
+  res
+}
+
