@@ -74,6 +74,7 @@ getYFFinancialsBasics <- function(tickers, block = 10, slp = 10) {
 #' @param periodicity character Valid Intervals: 1d, 1wk, 1mo
 #' @param block 'integer' After each block the query stops slp seconds. Default = 10
 #' @param slp 'integer' Number os seconds to sleep after each block. Default = 10
+#' @export
 #'
 #' @examples getYFHistPrices(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE", "PUM.DE"), "1y", "1mo")
 getYFHistPrices <- function(tickers, range, periodicity, block = 10, slp = 10) {

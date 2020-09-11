@@ -16,6 +16,3 @@ scrapeYahooFinance(url, time_in_seconds = 1)
 Scrape Yahoo Finance
 Returns the info of the web in different tables
 }
-\examples{
-scrapeYahooFinance(buildYahooFinanceURL("MC.PA", "key-statistics"))
-}

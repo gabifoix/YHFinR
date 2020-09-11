@@ -23,5 +23,5 @@ Suggests:
     testthat (>= 2.0.0),
 URL: https://github.com/gabifoix/YHFinR
 BugReports: https://github.com/gabifoix/YHFinR/issues
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr

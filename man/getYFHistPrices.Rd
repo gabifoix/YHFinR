@@ -14,9 +14,9 @@ getYFHistPrices(tickers, range, periodicity, block = 10, slp = 10)
 
 \item{periodicity}{character Valid Intervals: 1d, 1wk, 1mo}
 
-\item{block}{}
+\item{block}{'integer' After each block the query stops slp seconds. Default = 10}
 
-\item{slp}{}
+\item{slp}{'integer' Number os seconds to sleep after each block. Default = 10}
 }
 \description{
 Returns Historical Prices in a data.frame

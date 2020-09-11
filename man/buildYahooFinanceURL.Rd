@@ -17,6 +17,3 @@ character url
 \description{
 Build basic Yahoo Finance URL to scrape
 }
-\examples{
-buildYahooFinanceURL("MC.PA", "key-statistics")
-}
