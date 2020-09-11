@@ -63,14 +63,21 @@ queryYFquoteSummaryMany <- function(tickers, cols2extract, module, block = 10, s
 #' @param ticker
 #' @param range character Valid Ranges: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max
 #' @param interval character Valid Intervals: 1d, 1wk, 1mo
+#' @param from Date "YYYY-MM-DD" from which the range counts back. Default Sys.Date
 #' @param time_in_seconds
 #'
 #' @importFrom jsonlite fromJSON
 #' @importFrom curl curl
-#' @examples queryYFchart("SAN.MC", "1y", "1wk")
-queryYFchart <- function(ticker, range, interval, time_in_seconds = 0.5) {
+#' @examples queryYFchart("SAN.MC", "1y", "1wk", from = "2020-08-30")
+queryYFchart <- function(ticker, range, interval, from = NULL, time_in_seconds = 0.5) {
   urlroot <- "https://query1.finance.yahoo.com"
-  quoteSummary <- sprintf("/v7/finance/chart/%s?range=%s&interval=%s&indicators=quote&includeTimestamps=true", ticker, range, interval)
+  if (missing(from)) {
+    quoteSummary <- sprintf("/v7/finance/chart/%s?range=%s&interval=%s&indicators=quote&includeTimestamps=true", ticker, range, interval)
+  } else {
+    enddate <- convertDate2UNIX(from)
+    initdate <- convertDate2UNIX(calcInitDate(from, range))
+    quoteSummary <- sprintf("/v7/finance/chart/%s?period1=%s&period2=%s&interval=%s&indicators=quote&includeTimestamps=true", ticker, initdate, enddate, interval)
+  }
   url <- paste0(urlroot, quoteSummary)
   Sys.sleep(time_in_seconds)
   tmp <- try(jsonlite::fromJSON(curl::curl(url)), silent = TRUE)
@@ -84,6 +91,40 @@ queryYFchart <- function(ticker, range, interval, time_in_seconds = 0.5) {
                      adjclose = tmp$chart$result$indicators$adjclose[[1]]$adjclose[[1]],
                      stringsAsFactors = FALSE)
   }
+  tmp
 }
 
+
+#' Build basic Yahoo Finance URL to scrape
+#'
+#' @param ticker character
+#' @param urlsection character section name of the URL
+#'
+#' @return character url
+buildYahooFinanceURL <- function(ticker, urlsection) {
+  generic <- paste0("https://finance.yahoo.com/quote/%s/", urlsection,"?p=%s")
+  url <- sprintf(generic, ticker, ticker)
+  url
+}
+
+
+#' Scrape Yahoo Finance
+#' Returns the info of the web in different tables
+#'
+#' @param url 
+#' @param time_in_seconds 
+#'
+#' @importFrom XML htmlTreeParse getNodeSet readHTMLTable
+#' @importFrom dplyr bind_rows "%>%"
+#' 
+scrapeYahooFinance <- function(url, time_in_seconds = 1) {
+  Sys.sleep(time_in_seconds)
+  webpage <- readLines(url)
+  html <- XML::htmlTreeParse(webpage, useInternalNodes = TRUE, asText = TRUE)
+  tableNodes <- XML::getNodeSet(html, "//table")
+  res <- lapply(tableNodes, function(x) XML::readHTMLTable(x)) %>% 
+    dplyr::bind_rows() 
+  Sys.sleep(time_in_seconds)
+  res
+}
 

@@ -12,7 +12,10 @@ LazyData: true
 NeedsCompilation: no
 Imports:
     jsonlite,
-    curl
+    curl,
+    lubridate,
+    XML,
+    dplyr
 Suggests:
     knitr,
     roxygen2,
