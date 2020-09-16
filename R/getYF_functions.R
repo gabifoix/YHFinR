@@ -83,7 +83,9 @@ getYFHistPrices <- function(tickers, range, periodicity, block = 10, slp = 10) {
     message(paste("Ticker", i, tickers[i], sep =  " "))
     pause(i, block, slp)
     tmp <- queryYFchart(tickers[i], range, interval = periodicity)
-    tmp <- tmp[ , colnames(tmp) %in% cols2extract]
+    if (class(tmp) != "try-error") {
+      tmp <- tmp[ , colnames(tmp) %in% cols2extract]
+    }
   })
   names(res) <- tickers
   res

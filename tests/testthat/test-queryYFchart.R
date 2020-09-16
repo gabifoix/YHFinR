@@ -15,6 +15,11 @@ test_that("queryYchart works without dates", {
   testthat::expect_false(any(is.na(res)))
 })
 
+test_that("queryYchart does not crash with wrong tickers", {
+  res <- queryYFchart("wrong.ticker", "1y", "1wk")
+  testthat::expect_type(res, "character")
+  testthat::expect_true(class(res) == "try-error")
+})
 
 
 
