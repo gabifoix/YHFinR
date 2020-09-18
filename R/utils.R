@@ -4,7 +4,9 @@ pause <- function(i, block = 10, slp = 10) {
     Sys.sleep(slp)
 }
 
-
+tickerlog <- function (i, total, tickers) {
+  message(paste("Ticker", i, "of", total, tickers[i], sep =  " "))
+}
 
 #' convert UNIX  to Date
 #'
