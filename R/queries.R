@@ -149,3 +149,16 @@ scrapeWikiIndexComponents <- function(url, componentNode) {
     html_table()
   res[[1]]
 }
+
+
+#' List of available indexes
+#'
+#'
+#' @return
+#' @export
+available.indexes <- function(){
+  source(system.file("indexes.list.R", package = "YHFinR"))
+  names(indexes.list)
+}
+
+

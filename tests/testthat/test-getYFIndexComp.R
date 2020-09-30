@@ -2,7 +2,7 @@ context("getYFIndexComp")
 
 
 test_that("getYFIndexComp works as expected", {
-  res <-  getYFIndexComp("^FCHI")
-  testthat::expect_equal(nrow(res), 30)
+  res <-  getYFIndexComp("DAX")
+  testthat::expect_equal(length(res), 30)
   
 })

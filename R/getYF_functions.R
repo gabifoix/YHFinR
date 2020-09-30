@@ -94,17 +94,32 @@ getYFHistPrices <- function(tickers, range, periodicity, block = 10, slp = 10) {
 
 
 #' Get components of one index
-#' Note that due to a Yahoo Finance limittion, only the top 30 are returned.
+#' Find list of available index calling 
+#' Note that due to a Yahoo Finance limitation, only the top 30 are returned.
+#' For that reason, the componenets of some indexes are taken from other sources, mainly wikipedia. 
 #'
-#' @param ticker character Indey ticker 
+#' @param index character Index ticker
 #'
 #' @return 
 #' @export
 #'
-#' @examples getYFIndexComp("%5EMDAXI")
-getYFIndexComp <- function(ticker) {
-  url <- buildYahooFinanceURL(ticker, "components")
-  res <- scrapeYahooFinance(url)
-  res
+#' @examples getYFIndexComp("SP500")
+getYFIndexComp <- function(index) {
+  
+  source(system.file("indexes.list.R", package = "YHFinR"))
+  InQu <- indexes.list[[index]]
+  if (is.null(InQu))
+    message("Wrong Index. Please review the list of available indexes.")
+  
+  if (!is.null(InQu$YFticker)) {
+    url <- buildYahooFinanceURL(InQu$YFticker, "components")
+    res <- scrapeYahooFinance(url)
+    return(as.character(res$Symbol))
+  } else {
+    res <- scrapeWikiIndexComponents(InQu$url, InQu$componentNode)
+    return(paste0(res[, InQu$Ticker], InQu$appendum))
+  }
 }
+
+
 
