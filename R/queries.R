@@ -69,6 +69,7 @@ queryYFquoteSummaryMany <- function(tickers, cols2extract, module, block = 10, s
 #'
 #' @importFrom jsonlite fromJSON
 #' @importFrom curl curl
+#' @export
 #' @examples queryYFchart("SAN.MC", "1y", "1wk", from = "2020-08-30")
 queryYFchart <- function(ticker, range, interval, from = NULL, time_in_seconds = 0.5) {
   urlroot <- "https://query1.finance.yahoo.com"
@@ -117,7 +118,6 @@ buildYahooFinanceURL <- function(ticker, urlsection) {
 #'
 #' @importFrom XML htmlTreeParse getNodeSet readHTMLTable
 #' @importFrom dplyr bind_rows "%>%"
-#' 
 scrapeYahooFinance <- function(url, time_in_seconds = 1) {
   Sys.sleep(time_in_seconds)
   webpage <- readLines(url)
@@ -129,3 +129,5 @@ scrapeYahooFinance <- function(url, time_in_seconds = 1) {
   res
 }
 
+
+# https://stackoverflow.com/questions/13421364/yahoo-finance-incomplete-retrieval-components
