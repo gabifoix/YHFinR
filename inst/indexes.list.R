@@ -43,6 +43,8 @@ indexes.list <- list(
                      appendum = NULL, # Already added
                      Ticker = "Ticker",
                      Company = "Name", 
-                     componentNode = '//*[@id="mw-content-text"]/div[1]/table[3]')
+                     componentNode = '//*[@id="mw-content-text"]/div[1]/table[3]'),
+  # Swiss 20
+  SMI = list(YFticker = "%5ESSMI")
 )
 
