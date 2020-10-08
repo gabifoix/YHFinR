@@ -129,4 +129,36 @@ scrapeYahooFinance <- function(url, time_in_seconds = 1) {
 }
 
 
-# https://stackoverflow.com/questions/13421364/yahoo-finance-incomplete-retrieval-components
+
+#' Scrape Index Components from wikipedia
+#' Example: https://en.wikipedia.org/wiki/List_of_S%26P_500_companies
+#'
+#' @param url wikipedia url
+#' @param componentNode character Node where the table sits
+#'
+#' @return data.frame
+#' @importFrom rvest html_nodes html_table
+#' @importFrom xml2 read_html
+#' @export
+#'
+#' @examples scrapeWikiIndexComponents("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies", "//*[@id="constituents"]")
+scrapeWikiIndexComponents <- function(url, componentNode) {
+  res <- url %>%
+    read_html() %>%
+    html_nodes(xpath = componentNode) %>% 
+    html_table()
+  res[[1]]
+}
+
+
+#' List of available indexes
+#'
+#'
+#' @return
+#' @export
+available.indexes <- function(){
+  source(system.file("indexes.list.R", package = "YHFinR"))
+  names(indexes.list)
+}
+
+

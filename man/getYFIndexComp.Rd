@@ -3,20 +3,24 @@
 \name{getYFIndexComp}
 \alias{getYFIndexComp}
 \title{Get components of one index
-Note that due to a Yahoo Finance limittion, only the top 30 are returned.}
+Find list of available index calling 
+Note that due to a Yahoo Finance limitation, only the top 30 are returned.
+For that reason, the componenets of some indexes are taken from other sources, mainly wikipedia.}
 \usage{
-getYFIndexComp(ticker)
+getYFIndexComp(index)
 }
 \arguments{
-\item{ticker}{character Indey ticker}
+\item{index}{character Index ticker}
 }
 \value{
 
 }
 \description{
 Get components of one index
-Note that due to a Yahoo Finance limittion, only the top 30 are returned.
+Find list of available index calling 
+Note that due to a Yahoo Finance limitation, only the top 30 are returned.
+For that reason, the componenets of some indexes are taken from other sources, mainly wikipedia.
 }
 \examples{
-getYFIndexComp("\%5EMDAXI")
+getYFIndexComp("SP500")
 }
