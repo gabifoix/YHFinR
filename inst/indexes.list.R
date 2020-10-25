@@ -5,6 +5,9 @@ indexes.list <- list(
                Company = "Security", 
                componentNode = '//*[@id="constituents"]'),
   
+  # DJ 30 components
+  DJ = list(YFticker = "%5EDJI"),
+ 
   # MIB: 40 components
   MIB = list(url = "https://en.wikipedia.org/wiki/FTSE_MIB",
              appendum = ".MI",
@@ -18,6 +21,8 @@ indexes.list <- list(
 
   # MDAX: 50 Components
   MDAX = list(YFticker = "%5EMDAXI"),
+  
+  SDAX = list(YFticker = "%5ESDAXI"),
   
   # CAC: 40 components
   CAC = list(url = "https://en.wikipedia.org/wiki/CAC_40",
@@ -35,6 +40,8 @@ indexes.list <- list(
               Ticker = "Ticker",
               Company = "Company", 
               componentNode = '//*[@id="mw-content-text"]/div[1]/table[2]'),
+  
+  IBEXMC = list(YFticker = "%5EINDC.MC"),
   
   AEX = list(YFticker = "%5EAEX"),
   AMX = list(YFticker = "%5EAMX"),
