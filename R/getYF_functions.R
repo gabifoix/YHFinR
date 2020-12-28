@@ -104,8 +104,9 @@ getYFFreeCashFlow <- function(tickers, block = 10, slp = 10) {
 #' @examples getYFHistPrices(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE", "PUM.DE"), "1y", "1mo")
 getYFHistPrices <- function(tickers, range, periodicity, block = 10, slp = 10) {
   cols2extract <- c("Date", "volume", "close", "adjclose")
+  total <- length(tickers)
   res <- lapply(seq_along(tickers), function(i) {
-    message(paste("Ticker", i, tickers[i], sep =  " "))
+    tickerlog(i, total, tickers)
     pause(i, block, slp)
     tmp <- queryYFchart(tickers[i], range, interval = periodicity)
     if (class(tmp) != "try-error") {

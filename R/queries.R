@@ -40,8 +40,9 @@ queryYFquoteSummary <- function(ticker, module, time_in_seconds = 0.5) {
 #' @return list of tickers
 #' @examples
 queryYFquoteSummaryMany <- function(tickers, cols2extract, module, block = 10, slp = 10) {
+  total <- length(tickers)
   res <- lapply(seq_along(tickers), function(i) {
-    message(paste("Ticker", i, tickers[i], sep =  " "))
+    tickerlog(i, total, tickers)
     pause(i, block, slp)
     tmp <- queryYFquoteSummary(tickers[i], module)
     tmp <- tmp[ , colnames(tmp) %in% cols2extract]
