@@ -2,6 +2,7 @@
 
 export(available.indexes)
 export(getYFFinancialsBasics)
+export(getYFFreeCashFlow)
 export(getYFHistPrices)
 export(getYFIndexComp)
 export(getYFKeyStatistics)

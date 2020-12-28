@@ -65,6 +65,31 @@ getYFFinancialsBasics <- function(tickers, block = 10, slp = 10) {
 }
 
 
+#' Get the Free Cash Flow (FCF) from Yahoo Finance of a set of companies (tickers)
+#' The most recent data is taken.
+#' FCF = Operating Cash Flow + Capital Expenditure (negative sign)
+#' 
+#' @references https://finance.yahoo.com/quote/ITX.MC/cash-flow?p=ITX.MC
+#' @param tickers
+#' @param block 'integer' After each block the query stops slp seconds. Default = 10
+#' @param slp 'integer' Number os seconds to sleep after each block. Default = 10
+#'
+#' @return list of tickers with the Free Casf Flow
+#' @export
+#'
+#' @examples getYFFreeCashFlow(c("UNA.AS", "AAPL", "BMED.MI", "wrongticker","VOW3.DE"))
+getYFFreeCashFlow <- function(tickers, block = 10, slp = 10) {
+  # In the Cash-Flow site there are many levels and cols2extract become one single field
+  tmp <- queryYFquoteSummaryMany(tickers,
+                                 cols2extract = "cashflowStatements",
+                                 module = "cashflowStatementHistory", block, slp)
+  res <- lapply(tmp, function(x) head(x[[1]]$totalCashFromOperatingActivities$raw, 1) +
+                  head(x[[1]]$capitalExpenditures$raw, 1))
+  res  
+}
+
+
+
 #' Returns Historical Prices in a data.frame
 #' Fields: Date, volume, close, adjclose
 #' 
