@@ -1,7 +1,7 @@
 #' Query Yahoo Finance quoteSummary
 #'
 #' Queries Financial information from Yahoo Finance for a single ticker and a single module.
-#' Modules <- c(assetProfile', 'defaultKeyStatistics', 'financialData',
+#' Modules <- c('assetProfile', 'defaultKeyStatistics', 'financialData',
 #' 'industryTrend', 'indexTrend', 'sectorTrend',
 #' 'incomeStatementHistory', 'incomeStatementHistoryQuarterly',
 #' 'balanceSheetHistory', 'balanceSheetHistoryQuarterly',

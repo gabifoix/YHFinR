@@ -20,7 +20,7 @@ getYFProfile  <- function(tickers, block = 10, slp = 10) {
 
 
 #' Returns Yahoo Finance key Statistics of a set of companies (tickers)
-##' To avoid heavy loads, by default, each query gets executed every second and the system stops 10 seconds after each 10 tickers.
+#' To avoid heavy loads, by default, each query gets executed every second and the system stops 10 seconds after each 10 tickers.
 #'
 #' @references https://finance.yahoo.com/quote/VOW3.DE/key-statistics?p=VOW3.DE
 #' @param tickers
@@ -32,7 +32,7 @@ getYFProfile  <- function(tickers, block = 10, slp = 10) {
 #' @examples getYFKeyStatistics(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE"))
 getYFKeyStatistics <- function(tickers, block = 10, slp = 10) {
   # Set of cols to extract. Some tickers miss some of the fields.
-  colskeyStats <- c("enterpriseValue", "forwardPE", "profitMargins", "beta3Year", "bookValue", "priceToBook",
+  colskeyStats <- c("floatShares", "enterpriseValue", "forwardPE", "profitMargins", "beta3Year", "bookValue", "priceToBook",
                     "totalAssets",  "yield", "priceToSalesTrailing12Months",
                     "earningsQuarterlyGrowth", "netIncomeToCommon",
                     "trailingEps", "enterpriseToRevenue", "enterpriseToEbitda",
@@ -41,6 +41,54 @@ getYFKeyStatistics <- function(tickers, block = 10, slp = 10) {
   res
 
 }
+
+#' Returns Yahoo Finance Quarterly Balance Sheet of a set of companies (tickers)
+#' To avoid heavy loads, by default, each query gets executed every second and the system stops 10 seconds after each 10 tickers.
+#'
+#' @param tickers
+#' @param block 'integer' After each block the query stops slp seconds. Default = 10
+#' @param slp 'integer' Number os seconds to sleep after each block. Default = 10
+#'
+#' @return list of tickers with the quarterly Balance Sheet
+#' @export
+#' @examples getYH_qBS(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE"))
+getYH_qBS <- function(tickers, block = 10, slp = 10) {
+  res <- queryYFquoteSummaryMany(tickers, "balanceSheetStatements", module = "balanceSheetHistoryQuarterly", block, slp)
+  res
+}
+
+#' Returns Yahoo Finance Quarterly Income Statement of a set of companies (tickers)
+#' To avoid heavy loads, by default, each query gets executed every second and the system stops 10 seconds after each 10 tickers.
+#'
+#' @param tickers
+#' @param block 'integer' After each block the query stops slp seconds. Default = 10
+#' @param slp 'integer' Number os seconds to sleep after each block. Default = 10
+#'
+#' @return list of tickers with the quarterly Income Statement
+#' @export
+#' @examples getYH_qIS(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE"))
+getYH_qIS <- function(tickers, block = 10, slp = 10) {
+  res <- queryYFquoteSummaryMany(tickers, "incomeStatementHistory", module = "incomeStatementHistoryQuarterly", block, slp)
+  res
+}
+
+#' Returns Yahoo Finance Quarterly Cash Flow of a set of companies (tickers)
+#' To avoid heavy loads, by default, each query gets executed every second and the system stops 10 seconds after each 10 tickers.
+#'
+#' @param tickers
+#' @param block 'integer' After each block the query stops slp seconds. Default = 10
+#' @param slp 'integer' Number os seconds to sleep after each block. Default = 10
+#'
+#' @return list of tickers with the quarterly Cash Flow
+#' @export
+#' @examples getYH_qCF(c("UNA.AS", "G.MI", "BMED.MI", "wrongticker","VOW3.DE"))
+getYH_qCF <- function(tickers, block = 10, slp = 10) {
+  res <- queryYFquoteSummaryMany(tickers, "cashflowStatements", module = "cashflowStatementHistoryQuarterly", block, slp)
+  res
+  
+}
+
+
 
 #' Returns Yahoo Finance Basic Financials of a set of companies (tickers)
 ##' To avoid heavy loads, by default, each query gets executed every second and the system stops 10 seconds after each 10 tickers.
@@ -88,6 +136,28 @@ getYFFreeCashFlow <- function(tickers, block = 10, slp = 10) {
   res  
 }
 
+#' @export
+#' @examples getYFTotalAssets(c("UNA.AS", "AAPL", "BMED.MI", "wrongticker","VOW3.DE"))
+getYFTotalAssets <- function(tickers, block = 10, slp = 10) {
+  # In the Cash-Flow site there are many levels and cols2extract become one single field
+  tmp <- queryYFquoteSummaryMany(tickers,
+                                 cols2extract = "balanceSheetStatements",
+                                 module = "balanceSheetHistory", block, slp)
+  res <- lapply(tmp, function(x) head(x[[1]]$totalAssets$raw, 1))
+  res  
+}
+
+
+#' @export
+#' @examples getYFNetIncome(c("EBRO.MC","UNA.AS", "AAPL", "BMED.MI", "wrongticker","VOW3.DE"))
+getYFNetIncome <- function(tickers, block = 10, slp = 10) {
+  # In the Cash-Flow site there are many levels and cols2extract become one single field
+  tmp <- queryYFquoteSummaryMany(tickers,
+                                 cols2extract = "incomeStatementHistory",
+                                 module = "incomeStatementHistory", block, slp)
+  res <- lapply(tmp, function(x) head(x[[1]]$netIncome$raw, 1))
+  res  
+}
 
 
 #' Returns Historical Prices in a data.frame
